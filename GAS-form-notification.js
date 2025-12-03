@@ -84,15 +84,14 @@ function tallyFormResponses(f) {
           answerCounts["(no response)"] = (answerCounts["(no response)"] || 0) + 1;
         }
       });
+
+      // Build the final object for this question
+      const questionResult = {
+        question: title
+      };
+      Object.assign(questionResult, answerCounts); // Merge counts into the object
+      tallyResult.push(questionResult);
     } 
-
-    // Build the final object for this question
-    const questionResult = {
-      question: title
-    };
-    Object.assign(questionResult, answerCounts); // Merge counts into the object
-
-    tallyResult.push(questionResult);
   });
 
   return tallyResult;
