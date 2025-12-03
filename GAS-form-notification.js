@@ -1,8 +1,8 @@
 function sendEmailOnFormSubmit(e) {
-  let formName = e.source.getTitle();
   let sendToEmailAddressArray = [
     '<RECIPIENT_EMAIL_ADDRESS>',
   ];
+  let formName = e.source.getTitle();
   let emailSubject = "[" + formName + "] Response received";
   let emailHtmlBodyText = "[" + formName + "] Response received<br><br>";
 
@@ -10,16 +10,17 @@ function sendEmailOnFormSubmit(e) {
   const itemResponses = formResponse.getItemResponses();
   for (let i = 0; i < itemResponses.length; i++) {
     const itemResponse = itemResponses[i];
-    emailHtmlBodyText += itemResponse.getItem().getTitle() +
-      ": " +
-      itemResponse.getResponse() +
-      "<br>";
+    emailHtmlBodyText += 
+      "[Q] " + itemResponse.getItem().getTitle() +
+      "<br>" +
+      "[A] " + itemResponse.getResponse() +
+      "<br><br>";
   }
 
-  emailHtmlBodyText += "<br>All respones tally: <br>";
+  emailHtmlBodyText += "<br>All Respones Tally: <br>";
   let tallyResult = tallyFormResponses(e.source);
   tallyResult.forEach(q => {
-    emailHtmlBodyText += "<br>" + q.question + ":<br>";
+    emailHtmlBodyText += "<br>[Q] " + q.question + ":<br>[A]<br>";
       // Sort answers by count descending
       const answers = Object.entries(q).filter(([k]) => k !== "question");
       answers.sort((a, b) => b[1] - a[1]);
@@ -96,3 +97,4 @@ function tallyFormResponses(f) {
 
   return tallyResult;
 }
+
